@@ -1,41 +1,62 @@
 exports.up = function(knex) {
-  return knex.schemea
+  return knex.schema
     .createTable("projects", tbl => {
       tbl.increments();
-      tbl.string("project_name", 128).notNullable();
-      tbl.string("project_description", 128);
-      tbl.boolean("completed", false).notNullable();
+      tbl.string("project_name").notNullable();
+      tbl.string("project_description");
+      tbl
+        .boolean("completed")
+        .notNullable()
+        .defaultTo(0);
     })
     .createTable("tasks", tbl => {
       tbl.increments();
-      tbl.string("task_description").notNullable;
+
+      tbl.string("task_description").notNullable();
       tbl.string("task_notes");
-      tbl.boolean("completed", false).notNullable();
-    })
-    .createTable("project_resources", tbl => {
-      tbl.increments();
+      tbl
+        .boolean("completed")
+        .notNullable()
+        .defaultTo(0);
       tbl
         .integer("project_id")
-        .unsigned.notNullable()
-        .reference("id")
-        .inTable("projects");
-      onDelete("CASCADE").onUpdate("CASECADE");
-      tbl
-        .integer("resources_id")
-        .unsigned.notNullable()
-        .reference("id")
-        .inTable("resources")
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("projects")
         .onDelete("CASCADE")
-        .onUpdate("CASECADE");
+        .onUpdate("CASCADE");
+    })
+    .createTable("projects_resources", tbl => {
+      tbl.increments();
+
+      tbl
+        .integer("project_id")
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("projects")
+        .onDelete("RESTRICT")
+        .onUpdate("CASCADE");
+
+      tbl
+        .integer("resource_id")
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("resources")
+        .onDelete("RESTRICT")
+        .onUpdate("CASCADE");
     })
 
     .createTable("resources", tbl => {
       tbl.increments();
+
       tbl
         .string("resource_name")
         .notNullable()
         .unique();
-      table.string("resource_descirption");
+      tbl.string("resource_description");
     });
 };
 
