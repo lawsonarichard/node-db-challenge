@@ -5,7 +5,7 @@ exports.seed = function(knex) {
     .then(function() {
       // Inserts seed entries
       return knex("resources").insert([
-        { resource_name: 1, resource_descirption: "rowValue1" }
+        { resource_name: 1, resource_description: "rowValue1" }
       ]);
     });
 };
