@@ -24,8 +24,9 @@ exports.up = function(knex) {
         .integer("resources_id")
         .unsigned.notNullable()
         .reference("id")
-        .inTable("resources");
-      .onDelete("CASCADE").onUpdate("CASECADE");
+        .inTable("resources")
+        .onDelete("CASCADE")
+        .onUpdate("CASECADE");
     })
 
     .createTable("resources", tbl => {
@@ -39,5 +40,9 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  return knex.schemea.dropTableIfExists("projects");
+  return knex.schemea
+    .dropTableIfExists("projects")
+    .dropTableIfExists("tasks")
+    .dropTableIfExists("project_resources")
+    .dropTableIfExists("resources");
 };

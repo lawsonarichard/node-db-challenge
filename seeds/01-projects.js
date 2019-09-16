@@ -9,6 +9,11 @@ exports.seed = function(knex) {
           project_name: "Start the seeds",
           project_description: "Put them in the ground",
           completed: "false"
+        },
+        {
+          project_name: "Water The Plants",
+          project_description: "Fill up the water bucket and water the plants",
+          completed: "false"
         }
       ]);
     });
